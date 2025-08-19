@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoElite | Login & Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1535732820275-9ffd998cac22?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            color: #333;
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #ff4d30;
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo span {
+            color: #1a1a1a;
+        }
+
+        .header h2 {
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .form-container {
+            padding: 25px;
+        }
+
+        .form-control {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-control label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-control input:focus {
+            border-color: #ff4d30;
+            outline: none;
+        }
+
+        .form-control i {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: #777;
+        }
+
+        .form-control small {
+            display: block;
+            color: #e74c3c;
+            margin-top: 5px;
+            visibility: hidden;
+        }
+
+        .form-control.error small {
+            visibility: visible;
+        }
+
+        .form-control.error input {
+            border-color: #e74c3c;
+        }
+
+        .form-control.success input {
+            border-color: #2ecc71;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: #ff4d30;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff391a;
+        }
+
+        .toggle-container {
+            display: flex;
+            margin: 20px 0 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .toggle {
+            padding: 12px;
+            background: #f8f8f8;
+            text-align: center;
+            width: 50%;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .toggle.active {
+            background: #ff4d30;
+            color: white;
+        }
+
+        .social-login {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .social-login p {
+            margin-bottom: 15px;
+            color: #777;
+            position: relative;
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .google {
+            background: #db4a39;
+        }
+
+        .twitter {
+            background: #1da1f2;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #777;
+        }
+
+        .form-footer a {
+            color: #ff4d30;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .form {
+            display: none;
+        }
+
+        .form.active {
+            display: block;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Auto<span>Elite</span></div>
+            <h2>Welcome Back!</h2>
+        </div>
+        
+        <div class="form-container">
+            <div class="toggle-container">
+                <div class="toggle active" id="login-toggle">Login</div>
+            </div>
+            
+            <!-- Login Form -->
+            <form class="form active" id="login-form">
+                <div class="form-control">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email">
+                    <i class="fas fa-envelope"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <div class="form-control">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                    <i class="fas fa-lock"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <div class="form-footer">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn">Login</button>
+                
+                <div class="social-login">
+                    <p>Or login with</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/luwafemi.606770" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    Don't have an account? <a href="#" id="go-to-register">Register now</a>
+                </div>
+            </form>
+            
+            <!-- Register Form -->
+            <form class="form" id="register-form">
+                <div class="form-control">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" placeholder="Enter your full name">
+                    <i class="fas fa-user"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <div class="form-control">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" placeholder="Enter your email">
+                    <i class="fas fa-envelope"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <div class="form-control">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password">
+                    <i class="fas fa-lock"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <div class="form-control">
+                    <label for="register-password2">Confirm Password</label>
+                    <input type="password" id="register-password2" placeholder="Confirm your password">
+                    <i class="fas fa-lock"></i>
+                    <small>Error message</small>
+                </div>
+                
+                <button type="submit" class="btn">Register</button>
+                
+                <div class="social-login">
+                    <p>Or register with</p>
+                    <div class="social-icons">
+                        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="google"><i class="fab fa-google"></i></a>
+                        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    Already have an account? <a href="#" id="go-to-login">Login now</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Toggle between login and register forms
+        const loginToggle = document.getElementById('login-toggle');
+        const registerToggle = document.getElementById('register-toggle');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const goToRegister = document.getElementById('go-to-register');
+        const goToLogin = document.getElementById('go-to-login');
+        
+        function showLoginForm() {
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            loginToggle.classList.add('active');
+            registerToggle.classList.remove('active');
+        }
+        
+        function showRegisterForm() {
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            registerToggle.classList.add('active');
+            loginToggle.classList.remove('active');
+        }
+        
+        loginToggle.addEventListener('click', showLoginForm);
+        registerToggle.addEventListener('click', showRegisterForm);
+        goToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginForm();
+        });
+        goToRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            showRegisterForm();
+        });
+        
+        // Form validation
+        const forms = document.querySelectorAll('form');
+        
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                validateForm(this);
+            });
+        });
+        
+        function validateForm(form) {
+            const inputs = form.querySelectorAll('input');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                const formControl = input.parentElement;
+                
+                // Reset error state
+                formControl.classList.remove('error');
+                formControl.classList.remove('success');
+                
+                // Check required fields
+                if (input.value.trim() === '') {
+                    setError(formControl, `${getFieldName(input)} is required`);
+                    isValid = false;
+                } else {
+                    setSuccess(formControl);
+                }
+                
+                // Email validation
+                if (input.type === 'email' && input.value.trim() !== '') {
+                    if (!isValidEmail(input.value.trim())) {
+                        setError(formControl, 'Email is not valid');
+                        isValid = false;
+                    } else {
+                        setSuccess(formControl);
+                    }
+                }
+                
+                // Password validation
+                if (input.type === 'password' && input.id === 'register-password' && input.value.trim() !== '') {
+                    if (input.value.length < 6) {
+                        setError(formControl, 'Password must be at least 6 characters');
+                        isValid = false;
+                    } else {
+                        setSuccess(formControl);
+                    }
+                }
+                
+                // Confirm password validation
+                if (input.type === 'password' && input.id === 'register-password2' && input.value.trim() !== '') {
+                    const password = document.getElementById('register-password');
+                    if (input.value !== password.value) {
+                        setError(formControl, 'Passwords do not match');
+                        isValid = false;
+                    } else {
+                        setSuccess(formControl);
+                    }
+                }
+            });
+            
+            if (isValid) {
+                alert(`Form submitted successfully!`);
+                form.reset();
+            }
+        }
+        
+        function setError(element, message) {
+            const formControl = element;
+            const small = formControl.querySelector('small');
+            formControl.classList.add('error');
+            small.innerText = message;
+        }
+        
+        function setSuccess(element) {
+            element.classList.add('success');
+        }
+        
+        function getFieldName(input) {
+            return input.id.charAt(0).toUpperCase() + input.id.slice(1).replace('-', ' ');
+        }
+        
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+</body>
+</html>
